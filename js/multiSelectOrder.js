@@ -87,6 +87,15 @@
 
             that.$leftContainer.append(that.$leftUl);
             that.$rightContainer.append(that.$rightUl);
+            
+            $("<style>").prop("type", "text/css").html(
+                    ".multiSelectOrder-rightUl li:first-child button.multiSelectOrder-upBtn{\
+display: none\
+}\
+.multiSelectOrder-rightUl li:last-child button.multiSelectOrder-downBtn{\
+display: none\
+}").appendTo("head");
+            
             that.$container.append(
                     $("<div/>", {class: "multiSelectAll-header" + (that.options.bootstrap?' row':'')}).append(
                     $("<div/>", {class: "" + (that.options.bootstrap?" col-md-6 col-md-offset-6":"")}).append(
