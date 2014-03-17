@@ -21,8 +21,8 @@
                 'class': "multiSelectOrder-inputExtraBtn " + (options.bootstrap ? "btn btn-default" : ""),
                 'type': 'button'
             }).html(
-                    options.extraButton?
-                    options.extraButton:
+                    options.extraButton ?
+                    options.extraButton :
                     (options.bootstrap ? "+" : "add"));
         } else {
             this.$extraContainer = "";
@@ -87,7 +87,7 @@
 
             that.$leftContainer.append(that.$leftUl);
             that.$rightContainer.append(that.$rightUl);
-            
+
             $("<style>").prop("type", "text/css").html(
                     ".multiSelectOrder-rightUl li:first-child button.multiSelectOrder-upBtn{\
 display: none\
@@ -95,29 +95,29 @@ display: none\
 .multiSelectOrder-rightUl li:last-child button.multiSelectOrder-downBtn{\
 display: none\
 }").appendTo("head");
-            
+
             that.$container.append(
-                    $("<div/>", {class: "multiSelectAll-header" + (that.options.bootstrap?' row':'')}).append(
-                    $("<div/>", {class: "" + (that.options.bootstrap?" col-md-6 col-md-offset-6":"")}).append(
-                        $("<span/>",{}).append(
-                            $("<a>", {href: '#', class: 'multiSelectOrder-all' + (that.options.bootstrap?" label label-default":"")}).html(
-                                that.options.i18n.selectAll
-                            ))
+                    $("<div/>", {class: "multiSelectAll-header" + (that.options.bootstrap ? ' row' : '')}).append(
+                    $("<div/>", {class: "" + (that.options.bootstrap ? " col-md-6 col-md-offset-6" : "")}).append(
+                    $("<span/>", {}).append(
+                    $("<a>", {href: '#', class: 'multiSelectOrder-all' + (that.options.bootstrap ? " label label-default" : "")}).html(
+                    that.options.i18n.selectAll
+                    ))
                     ).append(" ").append(
-                        $("<span/>",{}).append(
-                        $("<a>", {href: '#', class: 'multiSelectOrder-none'+ (that.options.bootstrap?" label label-default":"")}).html(
-                            that.options.i18n.selectNone
-                            )
-                        )
+                    $("<span/>", {}).append(
+                    $("<a>", {href: '#', class: 'multiSelectOrder-none' + (that.options.bootstrap ? " label label-default" : "")}).html(
+                    that.options.i18n.selectNone
+                    )
+                    )
                     )
                     ));
-            
+
             that.$container.append(
                     $("<div>", {
-                        class:'multiSelectOrder-panels ' + (that.options.bootstrap?'row':'')
+                        class: 'multiSelectOrder-panels ' + (that.options.bootstrap ? 'row' : '')
                     }).append(that.$leftContainer).
-                            append(that.$rightContainer
-                        ));
+                    append(that.$rightContainer
+                            ));
 
             if (that.options.extra) {
                 that.$extraContainer.append(
@@ -125,34 +125,19 @@ display: none\
                         that.$inputExtra).append(
                         $("<span/>", {class: "" + (that.options.bootstrap ? 'input-group-btn' : '')}).append(that.$inputExtraBtn)
                         ));
-                
-                var addExtraOption = function() {
-                    if (that.options.extraPattern) {
-                        if (!that.options.extraPattern.test(that.$inputExtra.val())){
-                            that.$messageContainer.html(that.$inputExtra.val() + ' ' + that.options.i18n.invalid);
-                            return ;
-                        }
-                    }
-                    if (element.find("option[value='" + that.$inputExtra.val() + "']").length === 0) {
-                        var opt = $('<option/>', {
-                            'value': that.$inputExtra.val()
-                        }).html(that.$inputExtra.val());
-                        element.append(opt);
-                        that.select(opt);
-                        opt.data("multiSelectOrder-extra", true);
-                        that.$messageContainer.html('');
-                    } else {
-                        that.$messageContainer.html(that.$inputExtra.val() + ' ' + that.options.i18n.already);
-                    }
-                    that.$inputExtra.val('');
-                };
-                
-                that.$inputExtra.on("keypress", function(event){
-                    if (event.keyCode === 13){
-                        addExtraOption();
+
+                that.$inputExtra.on("keypress", function(event) {
+                    if (event.keyCode === 13) {
+                        that.addExtraOption();
                     }
                 });
-                that.$inputExtraBtn.on("click", addExtraOption);
+                that.$inputExtraBtn.on("click", function(){
+                    that.addExtraOption();
+                });
+                
+                for (var i = 0; i < that.options.extraOptions.length; i++) {
+                    that.addExtraOption(that.options.extraOptions[i]);
+                }
             }
             that.$container.append(
                     $("<div>", {class: 'row'}).append(
@@ -243,6 +228,31 @@ display: none\
             });
 
         },
+        'addExtraOption': function(optValue) {
+            var that = this,
+                    element = this.$element;
+            var optValue = optValue?optValue:that.$inputExtra.val();
+            
+            if (that.options.extraPattern) {
+                if (!that.options.extraPattern.test(optValue)) {
+                    that.$messageContainer.html(optValue + ' ' + that.options.i18n.invalid);
+                    return;
+                }
+            }
+            
+            if (element.find("option[value='" + optValue + "']").length === 0) {
+                var opt = $('<option/>', {
+                    'value': optValue
+                }).html(optValue);
+                element.append(opt);
+                that.select(opt);
+                opt.data("multiSelectOrder-extra", true);
+                that.$messageContainer.html('');
+            } else {
+                that.$messageContainer.html(optValue + ' ' + that.options.i18n.already);
+            }
+            that.$inputExtra.val('');
+        },
         'select': function(opt) {
             var that = this,
                     element = this.$element;
@@ -316,13 +326,14 @@ display: none\
         extraButton: false,
         extraPattern: false,
         extraPlaceholder: '',
+        extraOptions: [],
         i18n: {
             selectAll: 'selectAll',
             selectNone: 'selectNone',
             already: 'already exists',
             invalid: 'not valid',
             first: 'already first',
-            last: 'already last',
+            last: 'already last'
         }
     };
 })();
