@@ -117,10 +117,10 @@
                         $("<span/>", {class: "" + (that.options.bootstrap ? 'input-group-btn' : '')}).append(that.$inputExtraBtn)
                         ));
                 
-                that.$inputExtraBtn.on("click", function() {
+                var addExtraOption = function() {
                     if (that.options.extraPattern) {
                         if (!that.options.extraPattern.test(that.$inputExtra.val())){
-                            that.$messageContainer.html(that.$inputExtra.val() + ' not valid.');
+                            that.$messageContainer.html(that.$inputExtra.val() + ' ' + that.options.i18n.invalid);
                             return ;
                         }
                     }
@@ -133,12 +133,22 @@
                         opt.data("multiSelectOrder-extra", true);
                         that.$messageContainer.html('');
                     } else {
-                        that.$messageContainer.html(that.$inputExtra.val() + ' already exists.');
+                        that.$messageContainer.html(that.$inputExtra.val() + ' ' + that.options.i18n.already);
                     }
                     that.$inputExtra.val('');
+                };
+                
+                that.$inputExtra.on("keypress", function(event){
+                    if (event.keyCode === 13){
+                        addExtraOption();
+                    }
                 });
+                that.$inputExtraBtn.on("click", addExtraOption);
             }
-            that.$container.append(that.$messageContainer);
+            that.$container.append(
+                    $("<div>", {class: 'row'}).append(
+                    $("<div>", {class: 'col-md-6 col-md-offset-6'}).append(that.$messageContainer)
+                    ));
 
             element.after(that.$container);
             that.$container.after(that.$extraContainer);
@@ -299,7 +309,9 @@
         extraPlaceholder: '',
         i18n: {
             selectAll: 'selectAll',
-            selectNone: 'selectNone'
+            selectNone: 'selectNone',
+            already: 'already exists',
+            invalid: 'not valid',
         }
     };
 })();
