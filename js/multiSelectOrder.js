@@ -92,12 +92,12 @@
                     $("<div/>", {class: "" + (that.options.bootstrap?" col-md-6 col-md-offset-6":"")}).append(
                         $("<span/>",{}).append(
                             $("<a>", {href: '#', class: 'multiSelectOrder-all' + (that.options.bootstrap?" label label-default":"")}).html(
-                                that.options.i18n.selectAll?that.options.i18n.selectAll:"select all"
+                                that.options.i18n.selectAll
                             ))
                     ).append(" ").append(
                         $("<span/>",{}).append(
                         $("<a>", {href: '#', class: 'multiSelectOrder-none'+ (that.options.bootstrap?" label label-default":"")}).html(
-                            that.options.i18n.selectNone?that.options.i18n.selectNone:"select none"
+                            that.options.i18n.selectNone
                             )
                         )
                     )
@@ -297,5 +297,9 @@
         extraButton: false,
         extraPattern: false,
         extraPlaceholder: '',
+        i18n: {
+            selectAll: 'selectAll',
+            selectNone: 'selectNone'
+        }
     };
 })();
