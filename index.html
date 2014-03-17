@@ -12,13 +12,8 @@
                     <option value="22" selected>Juan</option>
                     <option value="23">Pepe</option>
                     <option value="24" selected>Alfonso</option>
-                    <option value="25" selected>Alfonso</option>
-                    <option value="27" selected>juas</option>
-                    <option value="28" selected>juas</option>
-                    <option value="29" selected>juas</option>
-                    <option value="30" selected>juas</option>
-                    <option value="31" selected>juas</option>
-                    <option value="32" selected>juas</option>
+                    <option value="27" selected>Marta</option>
+                    <option value="28" selected>Jose</option>
                 </select>
             </div>
         </div>
@@ -27,7 +22,11 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/multiSelectOrder.js"></script>
         <script>
-            $("#target").multiSelectOrder({extra: false, extraPattern: ''})
+            $("#target").multiSelectOrder({
+                bootstrap: true, 
+                extra: true, 
+                extraPattern: new RegExp("\\b\\d+\\b", "i")
+            });
         </script>
     </body>
 </html>

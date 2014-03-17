@@ -6,54 +6,62 @@
             'class': "multiSelectOrder-container row",
         });
 
-        this.$extraContainer = $('<div/>', {
-            class: 'row'
-        });
+        if (options.extra) {
+            this.$extraContainer = $('<div/>', {
+                class: 'row'
+            });
 
-        this.$inputExtra = $('<input/>', {
-            'class': "multiSelectOrder-inputExtra form-control",
-            'type': 'text'
-        });
+            this.$inputExtra = $('<input/>', {
+                'class': "multiSelectOrder-inputExtra " + (options.bootstrap ? "form-control" : ""),
+                'type': 'text'
+            });
 
-        this.$inputExtraBtn = $('<button/>', {
-            'class': "multiSelectOrder-inputExtraBtn btn btn-default",
-            'type': 'button'
-        }).html("+");
+            this.$inputExtraBtn = $('<button/>', {
+                'class': "multiSelectOrder-inputExtraBtn " + (options.bootstrap ? "btn btn-default" : ""),
+                'type': 'button'
+            }).html((options.bootstrap ? "+" : "add"));
+        } else {
+            this.$extraContainer = ""
+            this.$inputExtra = ""
+            this.$inputExtraBtn = ""
+        }
 
         this.$messageContainer = $('<div/>', {'class': "multiSelectOrder-message"});
 
         this.$leftContainer = $('<div/>', {
-            'class': "multiSelectOrder-left col-md-6",
+            'class': "multiSelectOrder-left " + (options.bootstrap ? "col-md-6" : ""),
             'style': "min-height: 200px; max-height: 300px;overflow: auto"
         });
         this.$rightContainer = $('<div/>', {
-            'class': "multiSelectOrder-right col-md-6",
+            'class': "multiSelectOrder-right " + (options.bootstrap ? "col-md-6" : ""),
             'style': "min-height: 200px; max-height: 300px;overflow: auto"
         });
 
-        this.$leftUl = $('<ul/>', {'class': "multiSelectOrder-leftUl list-group"});
-        this.$rightUl = $('<ul/>', {'class': "multiSelectOrder-rightUl list-group"});
+        this.$leftUl = $('<ul/>', {'class': "multiSelectOrder-leftUl " + (options.bootstrap ? "list-group" : "")});
+        this.$rightUl = $('<ul/>', {'class': "multiSelectOrder-rightUl " + (options.bootstrap ? "list-group" : "")});
 
-        this.$leftTmpl = $('<li/>', {'class': "multiSelectOrder-leftLi list-group-item"}).append(
+        this.$leftTmpl = $('<li/>', {'class': "multiSelectOrder-leftLi " + (options.bootstrap ? "list-group-item" : "")}).append(
+                $("<span>", {class: "buttonsWrapper " + (options.bootstrap ? "pull-right" : "")}).append(
+                $("<button/>", {
+                    type: 'button',
+                    class: "multiSelectOrder-upBtn " + (options.bootstrap ? "btn btn-default btn-sm" : "")}).html(
+                (options.bootstrap ? $("<i>", {class: 'glyphicon glyphicon-plus'}) : "add")
+                )));
+
+        this.$rightTmpl = $('<li/>', {'class': "multiSelectOrder-rightLi " + (options.bootstrap ? "list-group-item" : "")}).append(
                 $("<span>", {class: 'buttonsWrapper pull-right'}).append(
                 $("<button/>", {
                     type: 'button',
-                    class: 'multiSelectOrder-upBtn btn btn-default btn-sm'}).html($("<i>",
-                {class: 'glyphicon glyphicon-plus'}))));
-                
-        this.$rightTmpl = $('<li/>', {'class': "multiSelectOrder-rightLi list-group-item"}).append(
-                $("<span>", {class: 'buttonsWrapper pull-right'}).append(
+                    class: "multiSelectOrder-upBtn " + (options.bootstrap ? "btn btn-default btn-sm" : "")}).html(
+                (options.bootstrap ? $('<i/>', {class: 'glyphicon glyphicon-chevron-up'}) : "up"))).append(
                 $("<button/>", {
                     type: 'button',
-                    class: 'multiSelectOrder-upBtn btn btn-default btn-sm'}).html(
-                $('<i/>', {class: 'glyphicon glyphicon-chevron-up'}))).append(
+                    class: "multiSelectOrder-downBtn " + (options.bootstrap ? "btn btn-default btn-sm" : "")}).html(
+                (options.bootstrap ? $('<i/>', {class: 'glyphicon glyphicon-chevron-down'}) : "down"))).append(
                 $("<button/>", {
-                    type: 'button',
-                    class: 'multiSelectOrder-downBtn btn btn-default btn-sm'}).html(
-                $('<i/>', {class: 'glyphicon glyphicon-chevron-down'}))).append(
-                $("<button/>", {
-                    class: 'multiSelectOrder-deselectorBtn btn btn-default btn-sm',
-                    type: 'button'}).html($('<i/>', {class: 'glyphicon glyphicon-remove'})))
+                    class: "multiSelectOrder-deselectorBtn " + (options.bootstrap ? "btn btn-default btn-sm" : ""),
+                    type: 'button'}).html(
+                (options.bootstrap ? $('<i/>', {class: 'glyphicon glyphicon-remove'}) : "X")))
                 );
     };
 
@@ -75,15 +83,37 @@
 
             that.$leftContainer.append(that.$leftUl);
             that.$rightContainer.append(that.$rightUl);
-
             that.$container.append(that.$leftContainer);
             that.$container.append(that.$rightContainer);
 
-            that.$extraContainer.append(
-                    $("<div/>", {class: 'col-md-6 pull-right input-group'}).append(
-                    that.$inputExtra).append(
-                    $("<span/>", {class: 'input-group-btn'}).append(that.$inputExtraBtn)
-                    ));
+            if (that.options.extra) {
+                that.$extraContainer.append(
+                        $("<div/>", {class: "" + (that.options.bootstrap ? "col-md-6 pull-right input-group" : "")}).append(
+                        that.$inputExtra).append(
+                        $("<span/>", {class: "" + (that.options.bootstrap ? 'input-group-btn' : '')}).append(that.$inputExtraBtn)
+                        ));
+                
+                that.$inputExtraBtn.on("click", function() {
+                    if (that.options.extraPattern) {
+                        if (!that.options.extraPattern.test(that.$inputExtra.val())){
+                            that.$messageContainer.html(that.$inputExtra.val() + ' not valid.');
+                            return 
+                        }
+                    }
+                    if (element.find("option[value='" + that.$inputExtra.val() + "']").length === 0) {
+                        var opt = $('<option/>', {
+                            'value': that.$inputExtra.val()
+                        }).html(that.$inputExtra.val());
+                        element.append(opt);
+                        that.select(opt);
+                        opt.data("multiSelectOrder-extra", true);
+                        that.$messageContainer.html('');
+                    } else {
+                        that.$messageContainer.html(that.$inputExtra.val() + ' already exists.');
+                    }
+                    that.$inputExtra.val('');
+                });
+            }
             that.$container.append(that.$messageContainer);
 
             element.after(that.$container);
@@ -157,21 +187,6 @@
 
             });
 
-            that.$inputExtraBtn.on("click", function() {
-                if (element.find("option[value='" + that.$inputExtra.val() + "']").length === 0) {
-                    var opt = $('<option/>', {
-                        'value': that.$inputExtra.val()
-                    }).html(that.$inputExtra.val());
-                    element.append(opt);
-                    that.select(opt);
-                    opt.data("multiSelectOrder-extra", true);
-                } else {
-                    that.$messageContainer.html(that.$inputExtra.val() + ' already exists.');
-                }
-                that.$inputExtra.val('');
-            });
-
-
         },
         'select': function(opt) {
             var that = this,
@@ -241,5 +256,8 @@
     };
 
     $.fn.multiSelectOrder.defaults = {
+        bootstrap: false,
+        extra: true,
+        extraPattern: false
     };
 })();
