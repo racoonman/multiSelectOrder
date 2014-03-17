@@ -8,7 +8,7 @@ jQuery plugin for a two panels multi select with order
 Use it like a normal select, then call $.("#target").multiSelectOrder()
 Submit and you will receive a ordered list of the selected items
 
-'''HTML
+```HTML
 <select id="target" name="patata" multiple>
                     <option value="21">Antonio</option>
                     <option value="22" selected>Juan</option>
@@ -18,4 +18,4 @@ Submit and you will receive a ordered list of the selected items
 <script>
     $("#target").multiSelectOrder({extra: false, extraPattern: ''})
 </script>
-'''
+```
