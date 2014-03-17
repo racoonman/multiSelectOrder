@@ -3,7 +3,7 @@
         this.options = options;
         this.$element = $(element);
         this.$container = $('<div/>', {
-            'class': "multiSelectOrder-container " + (options.bootstrap?"row":"")
+            'class': "multiSelectOrder-container "
         });
 
         if (options.extra) {
@@ -13,13 +13,17 @@
 
             this.$inputExtra = $('<input/>', {
                 'class': "multiSelectOrder-inputExtra " + (options.bootstrap ? "form-control" : ""),
-                'type': 'text'
+                'type': 'text',
+                'placeholder': options.extraPlaceholder
             });
 
             this.$inputExtraBtn = $('<button/>', {
                 'class': "multiSelectOrder-inputExtraBtn " + (options.bootstrap ? "btn btn-default" : ""),
                 'type': 'button'
-            }).html((options.bootstrap ? "+" : "add"));
+            }).html(
+                    options.extraButton?
+                    options.extraButton:
+                    (options.bootstrap ? "+" : "add"));
         } else {
             this.$extraContainer = "";
             this.$inputExtra = "";
@@ -83,12 +87,32 @@
 
             that.$leftContainer.append(that.$leftUl);
             that.$rightContainer.append(that.$rightUl);
-            that.$container.append(that.$leftContainer);
-            that.$container.append(that.$rightContainer);
+            that.$container.append(
+                    $("<div/>", {class: "multiSelectAll-header" + (that.options.bootstrap?' row':'')}).append(
+                    $("<div/>", {class: "" + (that.options.bootstrap?" col-md-6 col-md-offset-6":"")}).append(
+                        $("<span/>",{}).append(
+                            $("<a>", {href: '#', class: 'multiSelectOrder-all' + (that.options.bootstrap?" label label-default":"")}).html(
+                                that.options.i18n.selectAll?that.options.i18n.selectAll:"select all"
+                            ))
+                    ).append(" ").append(
+                        $("<span/>",{}).append(
+                        $("<a>", {href: '#', class: 'multiSelectOrder-none'+ (that.options.bootstrap?" label label-default":"")}).html(
+                            that.options.i18n.selectNone?that.options.i18n.selectNone:"select none"
+                            )
+                        )
+                    )
+                    ));
+            
+            that.$container.append(
+                    $("<div>", {
+                        class:'multiSelectOrder-panels ' + (that.options.bootstrap?'row':'')
+                    }).append(that.$leftContainer).
+                            append(that.$rightContainer
+                        ));
 
             if (that.options.extra) {
                 that.$extraContainer.append(
-                        $("<div/>", {class: "" + (that.options.bootstrap ? "col-md-6 pull-right input-group" : "")}).append(
+                        $("<div/>", {class: "" + (that.options.bootstrap ? "col-md-6 col-md-offset-6 input-group" : "")}).append(
                         that.$inputExtra).append(
                         $("<span/>", {class: "" + (that.options.bootstrap ? 'input-group-btn' : '')}).append(that.$inputExtraBtn)
                         ));
@@ -123,6 +147,18 @@
                 var opt = element.find("option[value='" + $(this).data("multiSelectOrder-value") + "']");
                 that.select(opt);
                 that.$messageContainer.html('');
+            });
+            that.$container.on("click", '.multiSelectOrder-all', function() {
+                element.find("option:not(:selected)").each(function() {
+                    var opt = $(this);
+                    that.select(opt);
+                });
+            });
+            that.$container.on("click", '.multiSelectOrder-none', function() {
+                element.find("option:selected").each(function() {
+                    var opt = $(this);
+                    that.deselect(opt);
+                });
             });
             that.$rightUl.on("click", '.multiSelectOrder-deselectorBtn', function() {
                 var li = $(this).parent().parent();
@@ -258,6 +294,8 @@
     $.fn.multiSelectOrder.defaults = {
         bootstrap: false,
         extra: true,
-        extraPattern: false
+        extraButton: false,
+        extraPattern: false,
+        extraPlaceholder: '',
     };
 })();
