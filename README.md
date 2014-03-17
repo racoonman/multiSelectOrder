@@ -47,3 +47,14 @@ Submit and you will receive a ordered list of the selected items
 
 *default: false*
 
+**extraButton** *(String)*: Text or html to put in the include button for extra options 
+
+*default: +*
+
+**extraPlaceholder** *(String)*: Text to put in the input of extra options as placeholder
+
+*default: ''*
+
+**i18n:** *(Json)*: translations. If used you must supply all the translations
+    * selectAll: *selectAll*
+    * selectNone: *selectNone*
