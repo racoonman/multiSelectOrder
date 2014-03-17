@@ -1,11 +1,9 @@
 multiSelectOrder
 ================
 
-### Work in progress ###
 jQuery plugin for a two panels multi select with order
 
-![demo](https://raw.github.com/racoonman/multiSelectOrder/master/demo.png)
-
+### Work in progress ###
 ### Features ###
 * Bootstrap friendly (hardcoded)
 * Add new elements to the options
@@ -15,6 +13,8 @@ jQuery plugin for a two panels multi select with order
    * Use it if required by options
 * Options to use own CSS classes
 * Option to use or not the add option input
+
+![demo](https://raw.github.com/racoonman/multiSelectOrder/master/demo.png)
 
 ### Usage ###
 Use it like a normal select, then call $.("#target").multiSelectOrder().
