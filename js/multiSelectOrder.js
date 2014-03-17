@@ -187,7 +187,7 @@
 
                 if (!upperOpt.prop("selected")
                         || upperOpt === undefined) {
-                    that.$messageContainer.html(opt.html() + ' already first.');
+                    that.$messageContainer.html(opt.html() + ' ' + that.options.i18n.first);
                 } else {
                     var newOpt = opt.clone(true);
                     newOpt.prop('selected', true);
@@ -214,7 +214,7 @@
 
                 if (!downOpt.prop("selected")
                         || downOpt === undefined) {
-                    that.$messageContainer.html(opt.html() + ' already last.');
+                    that.$messageContainer.html(opt.html() + ' ' + that.options.i18n.last);
                 } else {
                     var newOpt = opt.clone(true);
                     newOpt.prop('selected', true);
@@ -312,6 +312,8 @@
             selectNone: 'selectNone',
             already: 'already exists',
             invalid: 'not valid',
+            first: 'already first',
+            last: 'already last',
         }
     };
 })();
