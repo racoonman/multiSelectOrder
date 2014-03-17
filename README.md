@@ -43,3 +43,7 @@ Submit and you will receive a ordered list of the selected items
 
 *default: true*
 
+**extraPattern** *(RegExp)*: If defined the added options will be filtered
+
+*default: false*
+
