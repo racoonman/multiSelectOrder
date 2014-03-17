@@ -4,6 +4,9 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
     </head>
     <body>
+        <div>
+            <h3>Example</h3>
+        </div>
         <div class="container">
 
             <div class="row">
@@ -25,7 +28,8 @@
             $("#target").multiSelectOrder({
                 bootstrap: true, 
                 extra: true, 
-                extraPattern: new RegExp("\\b\\d+\\b", "i")
+                extraPattern: new RegExp("\\b\\d+\\b", "i"),
+                extraPlaceholder: 'placeholder'
             });
         </script>
     </body>
