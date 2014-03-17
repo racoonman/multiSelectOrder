@@ -56,5 +56,7 @@ Submit and you will receive a ordered list of the selected items
 *default: ''*
 
 **i18n:** *(Json)*: translations. If used you must supply all the translations
+
     * selectAll: *selectAll*
+    
     * selectNone: *selectNone*
