@@ -2,7 +2,7 @@ multiSelectOrder
 ================
 
 ### Work in progress ###
-jQuery plugin for a two panels multi select with order
+jQuery plugin for a simple two panels multi select with order
 
 ![demo](https://raw.github.com/racoonman/multiSelectOrder/master/demo.png)
 
