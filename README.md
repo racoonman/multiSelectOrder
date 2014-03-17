@@ -9,6 +9,7 @@ jQuery plugin for a simple two panels multi select with order
 ### Features ###
 * Bootstrap friendly (hardcoded)
 * Add new elements to the options
+* Restrict new added elements with a JavascriptRegExp
 
 ### TO-DO ###
 * Remove hardcoded bootstrap classes
@@ -32,3 +33,17 @@ Submit and you will receive a ordered list of the selected items
     $("#target").multiSelectOrder({extra: false, extraPattern: ''})
 </script>
 ```
+
+### Options ###
+**bootstrap** *(Boolean)*: If true, bootstrap css classes will be applied. You must include bootstrap by yourself
+
+*default: false*
+
+**extra** *(Boolean)*: Include the input for adding new items
+
+*default: true*
+
+**extraPattern** *(RegExp)*: If defined the added options will be filtered
+
+*default: false*
+
