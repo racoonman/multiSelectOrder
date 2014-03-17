@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Test</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery-ui-1.10.4.custom.min.css">
+    </head>
+    <body>
+        <div class="container">
+
+            <div class="row">
+                <select id="target" name="patata" multiple>
+                    <option value="21">Antonio</option>
+                    <option value="22" selected>Juan</option>
+                    <option value="23">Pepe</option>
+                    <option value="24" selected>Alfonso</option>
+                    <option value="25" selected>Alfonso</option>
+                    <option value="27" selected>juas</option>
+                    <option value="28" selected>juas</option>
+                    <option value="29" selected>juas</option>
+                    <option value="30" selected>juas</option>
+                    <option value="31" selected>juas</option>
+                    <option value="32" selected>juas</option>
+                </select>
+            </div>
+        </div>
+        
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/multiSelectOrder.js"></script>
+        <script>
+            $("#target").multiSelectOrder({extra: false, extraPattern: ''})
+        </script>
+    </body>
+</html>
+
