@@ -3,7 +3,7 @@
         this.options = options;
         this.$element = $(element);
         this.$container = $('<div/>', {
-            'class': "multiSelectOrder-container row",
+            'class': "multiSelectOrder-container " + (options.bootstrap?"row":"")
         });
 
         if (options.extra) {
@@ -21,9 +21,9 @@
                 'type': 'button'
             }).html((options.bootstrap ? "+" : "add"));
         } else {
-            this.$extraContainer = ""
-            this.$inputExtra = ""
-            this.$inputExtraBtn = ""
+            this.$extraContainer = "";
+            this.$inputExtra = "";
+            this.$inputExtraBtn = "";
         }
 
         this.$messageContainer = $('<div/>', {'class': "multiSelectOrder-message"});
@@ -97,7 +97,7 @@
                     if (that.options.extraPattern) {
                         if (!that.options.extraPattern.test(that.$inputExtra.val())){
                             that.$messageContainer.html(that.$inputExtra.val() + ' not valid.');
-                            return 
+                            return ;
                         }
                     }
                     if (element.find("option[value='" + that.$inputExtra.val() + "']").length === 0) {
