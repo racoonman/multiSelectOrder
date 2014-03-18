@@ -19,6 +19,8 @@ Use it like a normal select, then call $.("#target").multiSelectOrder().
 
 Submit and you will receive a ordered list of the selected items
 
+**Limitation:** the select tag must contains the multiple atribute for a correct behaviour
+
 ```HTML
 <select id="target" name="usuario" multiple>
     <option value="21">Antonio</option>
