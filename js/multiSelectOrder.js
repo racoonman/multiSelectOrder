@@ -8,7 +8,7 @@
 
         if (options.extra) {
             this.$extraContainer = $('<div/>', {
-                class: 'row'
+                class: ''
             });
 
             this.$inputExtra = $('<input/>', {
