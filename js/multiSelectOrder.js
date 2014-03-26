@@ -8,7 +8,7 @@
 
         if (options.extra) {
             this.$extraContainer = $('<div/>', {
-                class: ''
+                'class': ''
             });
 
             this.$inputExtra = $('<input/>', {
@@ -45,27 +45,27 @@
         this.$rightUl = $('<ul/>', {'class': "multiSelectOrder-rightUl " + (options.bootstrap ? "list-group" : "")});
 
         this.$leftTmpl = $('<li/>', {'class': "multiSelectOrder-leftLi " + (options.bootstrap ? "list-group-item" : "")}).append(
-                $("<span>", {class: "buttonsWrapper " + (options.bootstrap ? "pull-right" : "")}).append(
+                $("<span>", {'class': "buttonsWrapper " + (options.bootstrap ? "pull-right" : "")}).append(
                 $("<button/>", {
-                    type: 'button',
-                    class: "multiSelectOrder-upBtn " + (options.bootstrap ? "btn btn-default btn-sm" : "")}).html(
-                (options.bootstrap ? $("<i>", {class: 'glyphicon glyphicon-plus'}) : "add")
+                    'type': 'button',
+                    'class': "multiSelectOrder-upBtn " + (options.bootstrap ? "btn btn-default btn-sm" : "")}).html(
+                (options.bootstrap ? $("<i>", {'class': 'glyphicon glyphicon-plus'}) : "add")
                 )));
 
         this.$rightTmpl = $('<li/>', {'class': "multiSelectOrder-rightLi " + (options.bootstrap ? "list-group-item" : "")}).append(
-                $("<span>", {class: 'buttonsWrapper pull-right'}).append(
+                $("<span>", {'class': 'buttonsWrapper pull-right'}).append(
                 $("<button/>", {
-                    type: 'button',
-                    class: "multiSelectOrder-upBtn " + (options.bootstrap ? "btn btn-default btn-sm" : "")}).html(
-                (options.bootstrap ? $('<i/>', {class: 'glyphicon glyphicon-chevron-up'}) : "up"))).append(
+                    'type': 'button',
+                    'class': "multiSelectOrder-upBtn " + (options.bootstrap ? "btn btn-default btn-sm" : "")}).html(
+                (options.bootstrap ? $('<i/>', {'class': 'glyphicon glyphicon-chevron-up'}) : "up"))).append(
                 $("<button/>", {
-                    type: 'button',
-                    class: "multiSelectOrder-downBtn " + (options.bootstrap ? "btn btn-default btn-sm" : "")}).html(
-                (options.bootstrap ? $('<i/>', {class: 'glyphicon glyphicon-chevron-down'}) : "down"))).append(
+                    'type': 'button',
+                    'class': "multiSelectOrder-downBtn " + (options.bootstrap ? "btn btn-default btn-sm" : "")}).html(
+                (options.bootstrap ? $('<i/>', {'class': 'glyphicon glyphicon-chevron-down'}) : "down"))).append(
                 $("<button/>", {
-                    class: "multiSelectOrder-deselectorBtn " + (options.bootstrap ? "btn btn-default btn-sm" : ""),
-                    type: 'button'}).html(
-                (options.bootstrap ? $('<i/>', {class: 'glyphicon glyphicon-remove'}) : "X")))
+                    'class': "multiSelectOrder-deselectorBtn " + (options.bootstrap ? "btn btn-default btn-sm" : ""),
+                    'type': 'button'}).html(
+                (options.bootstrap ? $('<i/>', {'class': 'glyphicon glyphicon-remove'}) : "X")))
                 );
     };
 
@@ -97,15 +97,15 @@ display: none\
 }").appendTo("head");
 
             that.$container.append(
-                    $("<div/>", {class: "multiSelectAll-header" + (that.options.bootstrap ? ' row' : '')}).append(
-                    $("<div/>", {class: "" + (that.options.bootstrap ? " col-md-6 col-md-offset-6" : "")}).append(
+                    $("<div/>", {'class': "multiSelectAll-header" + (that.options.bootstrap ? ' row' : '')}).append(
+                    $("<div/>", {'class': "" + (that.options.bootstrap ? " col-md-6 col-md-offset-6" : "")}).append(
                     $("<span/>", {}).append(
-                    $("<a>", {href: '#', class: 'multiSelectOrder-all' + (that.options.bootstrap ? " label label-default" : "")}).html(
+                    $("<a>", {'href': '#', 'class': 'multiSelectOrder-all' + (that.options.bootstrap ? " label label-default" : "")}).html(
                     that.options.i18n.selectAll
                     ))
                     ).append(" ").append(
                     $("<span/>", {}).append(
-                    $("<a>", {href: '#', class: 'multiSelectOrder-none' + (that.options.bootstrap ? " label label-default" : "")}).html(
+                    $("<a>", {'href': '#', 'class': 'multiSelectOrder-none' + (that.options.bootstrap ? " label label-default" : "")}).html(
                     that.options.i18n.selectNone
                     )
                     )
@@ -114,16 +114,16 @@ display: none\
 
             that.$container.append(
                     $("<div>", {
-                        class: 'multiSelectOrder-panels ' + (that.options.bootstrap ? 'row' : '')
+                        'class': 'multiSelectOrder-panels ' + (that.options.bootstrap ? 'row' : '')
                     }).append(that.$leftContainer).
                     append(that.$rightContainer
                             ));
 
             if (that.options.extra) {
                 that.$extraContainer.append(
-                        $("<div/>", {class: "" + (that.options.bootstrap ? "col-md-6 col-md-offset-6 input-group" : "")}).append(
+                        $("<div/>", {'class': "" + (that.options.bootstrap ? "col-md-6 col-md-offset-6 input-group" : "")}).append(
                         that.$inputExtra).append(
-                        $("<span/>", {class: "" + (that.options.bootstrap ? 'input-group-btn' : '')}).append(that.$inputExtraBtn)
+                        $("<span/>", {'class': "" + (that.options.bootstrap ? 'input-group-btn' : '')}).append(that.$inputExtraBtn)
                         ));
 
                 that.$inputExtra.on("keypress", function(event) {
@@ -140,8 +140,8 @@ display: none\
                 }
             }
             that.$container.append(
-                    $("<div>", {class: 'row'}).append(
-                    $("<div>", {class: 'col-md-6 col-md-offset-6'}).append(that.$messageContainer)
+                    $("<div>", {'class': 'row'}).append(
+                    $("<div>", {'class': 'col-md-6 col-md-offset-6'}).append(that.$messageContainer)
                     ));
 
             element.after(that.$container);
