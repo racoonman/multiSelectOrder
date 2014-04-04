@@ -46,26 +46,27 @@
 
         this.$leftTmpl = $('<li/>', {'class': "multiSelectOrder-leftLi " + (options.bootstrap ? "list-group-item" : "")}).append(
                 $("<span>", {'class': "buttonsWrapper " + (options.bootstrap ? "pull-right" : "")}).append(
-                $("<button/>", {
-                    'type': 'button',
-                    'class': "multiSelectOrder-upBtn " + (options.bootstrap ? "btn btn-default btn-sm" : "")}).html(
+                $("<a/>", {
+                    'href': '#',
+                    'class': "multiSelectOrder-upBtn " + (options.bootstrap ? "badge " : "")}).html(
                 (options.bootstrap ? $("<i>", {'class': 'glyphicon glyphicon-plus'}) : "add")
                 )));
 
         this.$rightTmpl = $('<li/>', {'class': "multiSelectOrder-rightLi " + (options.bootstrap ? "list-group-item" : "")}).append(
+                
                 $("<span>", {'class': 'buttonsWrapper pull-right'}).append(
-                $("<button/>", {
-                    'type': 'button',
-                    'class': "multiSelectOrder-upBtn " + (options.bootstrap ? "btn btn-default btn-sm" : "")}).html(
+                $("<a/>", {
+                    'href': '#',
+                    'class': "multiSelectOrder-upBtn " + (options.bootstrap ? "badge" : "")}).html(
                 (options.bootstrap ? $('<i/>', {'class': 'glyphicon glyphicon-chevron-up'}) : "up"))).append(
-                $("<button/>", {
-                    'type': 'button',
-                    'class': "multiSelectOrder-downBtn " + (options.bootstrap ? "btn btn-default btn-sm" : "")}).html(
-                (options.bootstrap ? $('<i/>', {'class': 'glyphicon glyphicon-chevron-down'}) : "down"))).append(
-                $("<button/>", {
-                    'class': "multiSelectOrder-deselectorBtn " + (options.bootstrap ? "btn btn-default btn-sm" : ""),
-                    'type': 'button'}).html(
-                (options.bootstrap ? $('<i/>', {'class': 'glyphicon glyphicon-remove'}) : "X")))
+                $("<a/>", {
+                    'class': "multiSelectOrder-deselectorBtn " + (options.bootstrap ? "badge alert-danger" : ""),
+                    'href': '#'}).html(
+                (options.bootstrap ? $('<i/>', {'class': 'glyphicon glyphicon-remove'}) : "X"))).append(
+                $("<a/>", {
+                    'href': '#',
+                    'class': "multiSelectOrder-downBtn " + (options.bootstrap ? "badge" : "")}).html(
+                (options.bootstrap ? $('<i/>', {'class': 'glyphicon glyphicon-chevron-down'}) : "down")))
                 );
     };
 
@@ -89,11 +90,11 @@
             that.$rightContainer.append(that.$rightUl);
 
             $("<style>").prop("type", "text/css").html(
-                    ".multiSelectOrder-rightUl li:first-child button.multiSelectOrder-upBtn{\
-display: none\
+                    ".multiSelectOrder-rightUl li:first-child a.multiSelectOrder-upBtn{\
+visibility: hidden\
 }\
-.multiSelectOrder-rightUl li:last-child button.multiSelectOrder-downBtn{\
-display: none\
+.multiSelectOrder-rightUl li:last-child a.multiSelectOrder-downBtn{\
+visibility: hidden\
 }").appendTo("head");
 
             that.$container.append(
