@@ -53,7 +53,7 @@ Submit and you will receive a ordered list of the selected items
 
 *default: []*
 
-**extraPattern** *(RegExp)*: If defined the added options will be filtered
+**extraPattern** *(String)*: If defined the added options will be filtered with a RegExp(extraPattern, 'i')
 
 *default: false*
 
