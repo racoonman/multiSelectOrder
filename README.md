@@ -17,15 +17,22 @@ jQuery plugin for a simple two panels multi select with order
 ### Usage ###
 Use it like a normal select, then call $.("#target").multiSelectOrder().
 
+For preselected values, th plugin ignores the "selected" atribute in options. You must use the attribute *data-multiSelectOrder-values* to pass a list of the values of the selected options. This is done for ignore the order of the options list but respect the order of the values
+For example, the options must be in alphabetical oder, but the selected values are not in order.
+
 Submit and you will receive a ordered list of the selected items
 
 **Limitation:** the select tag must contains the multiple atribute for a correct behaviour
 
 ```HTML
-<select id="target" name="usuario" multiple>
-    <option value="21">Antonio</option>
-    <option value="22" selected>Juan</option>
-    <option value="23">Pepe</option>
+<select id="target" name="patata" multiple data-multiSelectOrder-values="26,25,24">
+    <option value="21">One</option>
+    <option value="22">Two</option>
+    <option value="23">Three</option>
+    <option value="24">Four</option>
+    <option value="25">Five</option>
+    <option value="26">Six</option>
+    <option value="27">Seven</option>
 </select>
 
 <script>

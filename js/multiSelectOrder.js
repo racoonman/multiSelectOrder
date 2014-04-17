@@ -77,18 +77,7 @@
 
             element.find("option").each(function() {
                 var opt = $(this);
-                if (opt.attr("data-multiSelectOrder-extra")) {
-                    console.log("extra option")
-                    console.log(this)
-                    that.addExtraOption(this, true, false);
-                } else {
-//                if (opt.prop('selected')) {
-//                    that.select(opt);
-//                } else {
-                    that.deselect(opt);
-//                }                    
-                }
-
+                that.deselect(opt);
             });
             
             if (element.attr("data-multiSelectOrder-values")){
@@ -253,19 +242,11 @@ visibility: hidden\
                 : $("<option>", {value: optValue}).html(optValue);
 
             if (optValue) {
-                if (element.attr("data-multiSelectOrder-pattern")) {
-                    var p = new RegExp(element.attr("data-multiSelectOrder-pattern"), "i");
-                    if (!p.test()) {
+                if (that.options.extraPattern) {
+                    var p = new RegExp(that.options.extraPattern, "i");
+                    if (!p.test(optValue)) {
                         that.$messageContainer.html(optValue + ' ' + that.options.i18n.invalid);
                         return;
-                    }
-                } else {
-                    if (that.options.extraPattern) {
-                        var p = new RegExp(that.options.extraPattern, "i");
-                        if (!p.test(optValue)) {
-                            that.$messageContainer.html(optValue + ' ' + that.options.i18n.invalid);
-                            return;
-                        }
                     }
                 }
             }
