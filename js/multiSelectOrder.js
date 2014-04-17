@@ -47,24 +47,23 @@
         this.$leftTmpl = $('<li/>', {'class': "multiSelectOrder-leftLi " + (options.bootstrap ? "list-group-item" : "")}).append(
                 $("<span>", {'class': "buttonsWrapper " + (options.bootstrap ? "pull-right" : "")}).append(
                 $("<a/>", {
-                    'href': '#',
+                    'href': 'javascript:void(0)',
                     'class': "multiSelectOrder-upBtn " + (options.bootstrap ? "badge " : "")}).html(
                 (options.bootstrap ? $("<i>", {'class': 'glyphicon glyphicon-plus'}) : "add")
                 )));
 
         this.$rightTmpl = $('<li/>', {'class': "multiSelectOrder-rightLi " + (options.bootstrap ? "list-group-item" : "")}).append(
-                
                 $("<span>", {'class': 'buttonsWrapper pull-right'}).append(
                 $("<a/>", {
-                    'href': '#',
+                    'href': 'javascript:void(0)',
                     'class': "multiSelectOrder-upBtn " + (options.bootstrap ? "badge" : "")}).html(
                 (options.bootstrap ? $('<i/>', {'class': 'glyphicon glyphicon-chevron-up'}) : "up"))).append(
                 $("<a/>", {
                     'class': "multiSelectOrder-deselectorBtn " + (options.bootstrap ? "badge alert-danger" : ""),
-                    'href': '#'}).html(
+                    'href': 'javascript:void(0)'}).html(
                 (options.bootstrap ? $('<i/>', {'class': 'glyphicon glyphicon-remove'}) : "X"))).append(
                 $("<a/>", {
-                    'href': '#',
+                    'href': 'javascript:void(0)',
                     'class': "multiSelectOrder-downBtn " + (options.bootstrap ? "badge" : "")}).html(
                 (options.bootstrap ? $('<i/>', {'class': 'glyphicon glyphicon-chevron-down'}) : "down")))
                 );
@@ -73,18 +72,32 @@
     MultiSelectOrder.prototype = {
         constructor: MultiSelectOrder,
         init: function() {
-            var that = this,
-                    element = this.$element;
-
+            var that = this, element = this.$element;
             element.css({position: 'absolute', left: '-9999px'});
+
             element.find("option").each(function() {
                 var opt = $(this);
-                if (opt.prop('selected')) {
-                    that.select(opt);
+                if (opt.attr("data-multiSelectOrder-extra")) {
+                    console.log("extra option")
+                    console.log(this)
+                    that.addExtraOption(this, true, false);
                 } else {
+//                if (opt.prop('selected')) {
+//                    that.select(opt);
+//                } else {
                     that.deselect(opt);
+//                }                    
                 }
+
             });
+            
+            if (element.attr("data-multiSelectOrder-values")){
+                var values = element.attr("data-multiSelectOrder-values").split(",");
+                values.forEach(function(entry){
+                    var opt = element.find("option[value='" +  entry + "']");
+                    that.select(opt);
+                });
+            }
 
             that.$leftContainer.append(that.$leftUl);
             that.$rightContainer.append(that.$rightUl);
@@ -101,12 +114,12 @@ visibility: hidden\
                     $("<div/>", {'class': "multiSelectAll-header" + (that.options.bootstrap ? ' row' : '')}).append(
                     $("<div/>", {'class': "" + (that.options.bootstrap ? " col-md-6 col-md-offset-6" : "")}).append(
                     $("<span/>", {}).append(
-                    $("<a>", {'href': '#', 'class': 'multiSelectOrder-all' + (that.options.bootstrap ? " label label-default" : "")}).html(
+                    $("<a>", {'href': 'javascript:void(0)', 'class': 'multiSelectOrder-all' + (that.options.bootstrap ? " label label-default" : "")}).html(
                     that.options.i18n.selectAll
                     ))
                     ).append(" ").append(
                     $("<span/>", {}).append(
-                    $("<a>", {'href': '#', 'class': 'multiSelectOrder-none' + (that.options.bootstrap ? " label label-default" : "")}).html(
+                    $("<a>", {'href': 'javascript:void(0)', 'class': 'multiSelectOrder-none' + (that.options.bootstrap ? " label label-default" : "")}).html(
                     that.options.i18n.selectNone
                     )
                     )
@@ -132,13 +145,9 @@ visibility: hidden\
                         that.addExtraOption();
                     }
                 });
-                that.$inputExtraBtn.on("click", function(){
+                that.$inputExtraBtn.on("click", function() {
                     that.addExtraOption();
                 });
-                
-                for (var i = 0; i < that.options.extraOptions.length; i++) {
-                    that.addExtraOption(that.options.extraOptions[i]);
-                }
             }
             that.$container.append(
                     $("<div>", {'class': 'row'}).append(
@@ -229,18 +238,38 @@ visibility: hidden\
             });
 
         },
-        'addExtraOption': function(optValue) {
+        'addExtraOption': function(paramOpt) {
             var that = this,
                     element = this.$element;
-            var optValue = optValue?optValue:that.$inputExtra.val();
-            
-            if (that.options.extraPattern) {
-                if (!that.options.extraPattern.test(optValue)) {
-                    that.$messageContainer.html(optValue + ' ' + that.options.i18n.invalid);
-                    return;
-                }
+            var optValue 
+            if ($(paramOpt).attr("value")) {
+                optValue = $(paramOpt).attr("value")
+            } else {
+                optValue = that.$inputExtra.val()
             }
             
+            var opt = paramOpt 
+                ? paramOpt
+                : $("<option>", {value: optValue}).html(optValue);
+
+            if (optValue) {
+                if (element.attr("data-multiSelectOrder-pattern")) {
+                    var p = new RegExp(element.attr("data-multiSelectOrder-pattern"), "i");
+                    if (!p.test()) {
+                        that.$messageContainer.html(optValue + ' ' + that.options.i18n.invalid);
+                        return;
+                    }
+                } else {
+                    if (that.options.extraPattern) {
+                        var p = new RegExp(that.options.extraPattern, "i");
+                        if (!p.test(optValue)) {
+                            that.$messageContainer.html(optValue + ' ' + that.options.i18n.invalid);
+                            return;
+                        }
+                    }
+                }
+            }
+
             if (element.find("option[value='" + optValue + "']").length === 0) {
                 var opt = $('<option/>', {
                     'value': optValue
@@ -265,7 +294,7 @@ visibility: hidden\
 
             that.$leftUl.find("li#" + that.idFromValue(opt.val())).remove();
             opt.prop('selected', true);
-
+            
             element.find("option[value='" + opt.val() + "']").remove();
             element.append(opt);
 
@@ -327,7 +356,6 @@ visibility: hidden\
         extraButton: false,
         extraPattern: false,
         extraPlaceholder: '',
-        extraOptions: [],
         i18n: {
             selectAll: 'selectAll',
             selectNone: 'selectNone',
