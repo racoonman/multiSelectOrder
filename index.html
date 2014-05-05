@@ -11,24 +11,24 @@
             <div class="row">
                 <select id="target" name="patata" multiple data-multiSelectOrder-values="26,25,24">
                     <option value="21">One</option>
-                    <option value="22">Two</option>
-                    <option value="23">Three</option>
-                    <option value="24">Four</option>
-                    <option value="25">Five</option>
-                    <option value="26">Six</option>
-                    <option value="27">Seven</option>
-                </select>
+                        <option value="22">Two</option>
+                        <option value="23">Three</option>
+                        <option value="24">Four</option>
+                        <option value="25">Five</option>
+                        <option value="26">Six</option>
+                        <option value="27">Seven</option>
+                    </select>
+                </div>
             </div>
-        </div>
-        
+
         <script src="js/jquery-1.10.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/multiSelectOrder.js"></script>
         <script>
             $("#target").multiSelectOrder({
-                bootstrap: true, 
-                extra: true, 
-                extraButton: "include", 
+                bootstrap: true,
+                extra: true,
+                extraButton: "include",
                 extraPattern: "\\b\\d+\\b",
                 extraPlaceholder: 'include new option',
                 i18n: {

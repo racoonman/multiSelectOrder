@@ -44,16 +44,16 @@
         this.$leftUl = $('<ul/>', {'class': "multiSelectOrder-leftUl " + (options.bootstrap ? "list-group" : "")});
         this.$rightUl = $('<ul/>', {'class': "multiSelectOrder-rightUl " + (options.bootstrap ? "list-group" : "")});
 
-        this.$leftTmpl = $('<li/>', {'class': "multiSelectOrder-leftLi " + (options.bootstrap ? "list-group-item" : "")}).append(
-                $("<span>", {'class': "buttonsWrapper " + (options.bootstrap ? "pull-right" : "")}).append(
+        this.$leftTmpl = $('<li/>', {'class': "multiSelectOrder-leftLi " + (options.bootstrap ? "list-group-item clearfix" : "")}).append(
+                $("<div>", {'class': "buttonsWrapper " + (options.bootstrap ? "pull-right" : "")}).append(
                 $("<a/>", {
                     'href': 'javascript:void(0)',
-                    'class': "multiSelectOrder-upBtn " + (options.bootstrap ? "badge " : "")}).html(
+                    'class': "multiSelectOrder-addBtn " + (options.bootstrap ? "badge " : "")}).html(
                 (options.bootstrap ? $("<i>", {'class': 'glyphicon glyphicon-plus'}) : "add")
                 )));
 
-        this.$rightTmpl = $('<li/>', {'class': "multiSelectOrder-rightLi " + (options.bootstrap ? "list-group-item" : "")}).append(
-                $("<span>", {'class': 'buttonsWrapper pull-right'}).append(
+        this.$rightTmpl = $('<li/>', {'class': "multiSelectOrder-rightLi " + (options.bootstrap ? "list-group-item clearfix" : "")}).append(
+                $("<div>", {'class': 'buttonsWrapper '+ (options.bootstrap ? "pull-right clearfix" : "")}).append(
                 $("<a/>", {
                     'href': 'javascript:void(0)',
                     'class': "multiSelectOrder-upBtn " + (options.bootstrap ? "badge" : "")}).html(
@@ -90,6 +90,13 @@
 
             that.$leftContainer.append(that.$leftUl);
             that.$rightContainer.append(that.$rightUl);
+
+            if (that.options.noOrder) {
+                $("<style>").prop("type", "text/css").html(
+                        ".multiSelectOrder-upBtn{ display:none; }\
+.multiSelectOrder-downBtn{ display:none; }\
+").appendTo("head");
+            }
 
             $("<style>").prop("type", "text/css").html(
                     ".multiSelectOrder-rightUl li:first-child a.multiSelectOrder-upBtn{\
@@ -332,6 +339,7 @@ visibility: hidden\
     };
 
     $.fn.multiSelectOrder.defaults = {
+        noOrder: false,
         bootstrap: false,
         extra: true,
         extraButton: false,

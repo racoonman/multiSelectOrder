@@ -41,6 +41,10 @@ Submit and you will receive a ordered list of the selected items
 ```
 
 ### Options ###
+**noOrder** *(Boolean)*: If true, the ordering buttons will not be displayed
+
+*default: false*
+
 **bootstrap** *(Boolean)*: If true, bootstrap css classes will be applied. You must include bootstrap by yourself
 
 *default: false*
