@@ -9,16 +9,16 @@ jQuery plugin for a simple two panels multi select with order
 ### Features ###
 * Bootstrap friendly
 * Add new elements to the options
-* Restrict new added elements with a JavascriptRegExp
+* Restrict new elements using JavascriptRegExp
 
 ### TO-DO ###
 * Options to use own CSS classes
 
 ### Usage ###
-Use it like a normal select, then call $.("#target").multiSelectOrder().
+Use it like a regular select, then call $.("#target").multiSelectOrder().
 
-For preselected values, th plugin ignores the "selected" atribute in options. You must use the attribute *data-multiSelectOrder-values* to pass a list of the values of the selected options. This is done for ignore the order of the options list but respect the order of the values
-For example, the options must be in alphabetical oder, but the selected values are not in order.
+For preselected values, the plugin ignores the "selected" atribute in options. You must use the attribute *data-multiSelectOrder-values* to pass a list of the values of the selected options. This should be done in order to ignore the order of the options list, while keeping the order of the values
+For example, the options must be in alphabetical order, but the selected values are not in order.
 
 Submit and you will receive a ordered list of the selected items
 
@@ -57,15 +57,15 @@ Submit and you will receive a ordered list of the selected items
 
 *default: []*
 
-**extraPattern** *(String)*: If defined the added options will be filtered with a RegExp(extraPattern, 'i')
+**extraPattern** *(String)*: If defined, the added options will be filtered with a RegExp(extraPattern, 'i')
 
 *default: false*
 
-**extraButton** *(String)*: Text or html to put in the include button for extra options 
+**extraButton** *(String)*: Text or html to be shown in the include button for extra options 
 
 *default: +*
 
-**extraPlaceholder** *(String)*: Text to put in the input of extra options as placeholder
+**extraPlaceholder** *(String)*: Text to be shown in the input of extra options as placeholder
 
 *default: ''*
 
