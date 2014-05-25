@@ -9,7 +9,7 @@ jQuery plugin for a simple two panels multi select with order
 ### Features ###
 * Bootstrap friendly
 * Add new elements to the options
-* Restrict new elements using JavascriptRegExp
+* Restrict the addition  of new elements by using JavascriptRegExp
 
 ### TO-DO ###
 * Options to use own CSS classes
